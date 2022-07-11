@@ -11,15 +11,17 @@ export const Home = () => {
         <div className={styles.searchContainer}>
           <input className={styles.searchInput} type="text" placeholder="Search" />
         </div>
-        <div className={styles.recipesContainer}></div>
+        <div className={styles.recipesContainer}>
+          <Button
+            className={styles.button}
+            onClick={() => {
+              console.log('sfsa');
+            }}
+          >
+            Add Recipe
+          </Button>
+        </div>
       </div>
-      <Button
-        onClick={() => {
-          console.log('sfsa');
-        }}
-      >
-        Add Recipe
-      </Button>
     </div>
   );
 };
