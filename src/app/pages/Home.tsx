@@ -1,5 +1,6 @@
 import styles from './Home.module.scss';
-import { Button } from 'ui/Button/Button';
+import { Button } from '../../ui/Button/Button'; //fix the path
+
 export const Home = () => {
   return (
     <div className={styles.homePage}>
