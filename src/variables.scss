@@ -1,0 +1,10 @@
+$primary: #6f439c;
+$secondary: #353239;
+$background: #2b292e;
+
+@mixin flex($justify: none, $align: none, $direction: none) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}
