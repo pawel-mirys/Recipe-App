@@ -1,28 +1,30 @@
+import { createContext } from 'react';
+
 import styles from './Recipe.module.scss';
 
 type RecipeProps = {
-  title?: string;
-  description?: string;
-  ingredients?: string[];
+  title: string;
+  description: string;
+  ingredients: string[];
 };
+
+export const RecipeContext = createContext<{
+  title: RecipeProps['title'];
+  description: RecipeProps['description'];
+  ingredients: RecipeProps['ingredients'];
+}>;
 
 export const Recipe = ({ title, description, ingredients }: RecipeProps) => {
   return (
     <div className={styles.recipe}>
       <div className={styles.recipeContainer}>
         <div className={styles.titleContainer}>
-          <h3 className={styles.title}>Title</h3>
+          <h3 className={styles.title}>{title}</h3>
         </div>
         <div className={styles.descriptionContainer}>
-          <p className={styles.description}>Description</p>
+          <p className={styles.description}>{description}</p>
         </div>
-        <div className={styles.ingridients}>
-          <ul>
-            <li>ing1</li>
-            <li>ing2</li>
-            <li>ing3</li>
-          </ul>
-        </div>
+        <div className={styles.ingredients}>{ingredients}</div>
       </div>
     </div>
   );

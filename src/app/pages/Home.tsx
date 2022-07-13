@@ -1,6 +1,6 @@
 import styles from './Home.module.scss';
 import { Button } from '../../ui/Button/Button'; //fix the path
-import { Recipe } from '../Components/Recipe/Recipe'; // fix the path
+import { RecipesList } from '../Components/RecipesList/RecipesList'; // fix the path
 
 export const Home = () => {
   return (
@@ -14,9 +14,8 @@ export const Home = () => {
           <input className={styles.searchInput} type="text" placeholder="Search" />
         </div>
         <div className={styles.recipesContainer}>
-          <div className={styles.recipes}>
-            <Recipe />
-          </div>
+          <RecipesList />
+
           <Button
             className={styles.button}
             onClick={() => {

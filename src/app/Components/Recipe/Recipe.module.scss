@@ -4,6 +4,7 @@
     border: 2px solid $primary;
     background: $secondary;
     border-radius: 5px;
+    margin: 15px 0px;
     &:hover {
         cursor: pointer;
         background: #3c3a3f;
@@ -21,15 +22,11 @@
     width: 100%;
     border-bottom: 2px solid $primary;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex(center, center, none);
 }
 
 .titleContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex(center, center, none);
     height: 50px;
     .title {
         margin: 0;
@@ -46,6 +43,7 @@
 .ingredients {
     width: 100%;
     min-height: 100px;
+    border: none;
     ul {
         list-style: none;
         padding: 0;
