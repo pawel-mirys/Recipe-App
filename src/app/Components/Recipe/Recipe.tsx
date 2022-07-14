@@ -6,6 +6,7 @@ type RecipeProps = {
   title: string;
   description: string;
   ingredients: string[];
+  key?: string | number;
 };
 
 export const RecipeContext = createContext<{
@@ -14,9 +15,9 @@ export const RecipeContext = createContext<{
   ingredients: RecipeProps['ingredients'];
 }>;
 
-export const Recipe = ({ title, description, ingredients }: RecipeProps) => {
+export const Recipe = ({ title, description, ingredients, key }: RecipeProps) => {
   return (
-    <div className={styles.recipe}>
+    <div className={styles.recipe} key={title}>
       <div className={styles.recipeContainer}>
         <div className={styles.titleContainer}>
           <h3 className={styles.title}>{title}</h3>
@@ -25,8 +26,8 @@ export const Recipe = ({ title, description, ingredients }: RecipeProps) => {
           <p className={styles.description}>{description}</p>
         </div>
         <div className={styles.ingredients}>
-          {ingredients.map((item) => {
-            return <div>{item}</div>; //Add key
+          {ingredients.map((item, index) => {
+            return <div key={index}>{item}</div>;
           })}
         </div>
       </div>

@@ -7,11 +7,18 @@ type LinkButtonProps = {
   to: string;
   className?: string;
   children: string | JSX.Element;
+  onClick?: () => void;
 };
 
-export const LinkButton = ({ to, className, children }: LinkButtonProps) => {
+export const LinkButton = ({ to, className, children, onClick }: LinkButtonProps) => {
   return (
-    <Link to={to} className={clsx(styles.linkButton, className)}>
+    <Link
+      onClick={() => {
+        onClick?.();
+      }}
+      to={to}
+      className={clsx(styles.linkButton, className)}
+    >
       {children}
     </Link>
   );

@@ -3,7 +3,7 @@ import { recipes } from './recipes-meta';
 
 export const RecipesList = () => {
   let listItem = recipes.map((item) => {
-    //add keys
+    // fix key problem
     return item;
   });
 
