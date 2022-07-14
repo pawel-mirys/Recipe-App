@@ -1,6 +1,8 @@
 import styles from './Home.module.scss';
 import { Button } from '../../../ui/Button/Button'; //fix the path
 import { RecipesList } from '../../Components/RecipesList/RecipesList'; // fix the path
+import { Link } from 'react-router-dom';
+import { LinkButton } from '../../../ui/LinkButton/LinkButton';
 
 export const Home = () => {
   return (
@@ -15,14 +17,8 @@ export const Home = () => {
         </div>
         <div className={styles.recipesContainer}>
           <RecipesList />
-          <Button
-            className={styles.button}
-            onClick={() => {
-              console.log('sfsa');
-            }}
-          >
-            Add Recipe
-          </Button>
+
+          <LinkButton to="/creator" children="Add Recipe" />
         </div>
       </div>
     </div>
