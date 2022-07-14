@@ -24,7 +24,11 @@ export const Recipe = ({ title, description, ingredients }: RecipeProps) => {
         <div className={styles.descriptionContainer}>
           <p className={styles.description}>{description}</p>
         </div>
-        <div className={styles.ingredients}>{ingredients}</div>
+        <div className={styles.ingredients}>
+          {ingredients.map((item) => {
+            return <div>{item}</div>; //Add key
+          })}
+        </div>
       </div>
     </div>
   );

@@ -1,12 +1,15 @@
 import React from 'react';
-
 import './App.scss';
-import { Home } from './app/pages/Home';
+import { BrowserRouter } from 'react-router-dom';
+import { RouterSwitch } from './app/router/RouterSwitch';
+
 function App() {
   return (
-    <div className="App">
-      <Home />
-    </div>
+    <BrowserRouter>
+      <div id="App">
+        <RouterSwitch />
+      </div>
+    </BrowserRouter>
   );
 }
 
