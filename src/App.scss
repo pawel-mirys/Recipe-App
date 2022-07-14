@@ -1,6 +1,15 @@
 @import './variables.scss';
 .App {
-    height: 100%;
-    width: 100%;
-    background-color: $background;
+  height: 100%;
+  width: 100%;
+  background-color: $background;
+}
+
+.headerContainer {
+  @include flex(center, center, column);
+  background-color: $primary;
+  color: white;
+  h1 {
+    margin: 0;
+  }
 }
