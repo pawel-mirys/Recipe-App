@@ -11,7 +11,7 @@ export const Home = () => {
         </div>
         <div className={styles.recipesContainer}>
           <RecipesList />
-          <LinkButton to="/creator" children="Add Recipe" />
+          <LinkButton to="/creator" children="New Recipe" />
         </div>
       </div>
     </div>
