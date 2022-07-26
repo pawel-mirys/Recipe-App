@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import clsx from 'clsx';
-import { LinkButton } from '../../../ui/LinkButton/LinkButton';
-import { Button } from '../../../ui/Button/Button';
+import { LinkButton } from 'ui/LinkButton/LinkButton';
+import { Button } from 'ui/Button/Button';
 import styles from './RecipeForm.module.scss';
-import { recipes } from '../RecipesList/recipes-meta';
-import { Recipe } from '../Recipe/Recipe';
+import { recipes } from 'app/Components/RecipesList/recipes-meta';
+import { Recipe } from 'app/Components/Recipe/Recipe';
 
 export const RecipeForm = () => {
   const input: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input');
@@ -135,7 +135,7 @@ export const RecipeForm = () => {
         to={valid ? '/' : ''}
         children="Return"
       />
-      {message && <div className={styles.message}> Re</div>}
+      {message && <div className={styles.message}> Recipe has been added!</div>}
     </div>
   );
 };

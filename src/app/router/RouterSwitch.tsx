@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 
 import { routes } from './routes';
-import { Home } from '../pages/Home/Home';
-import { RecipeCreator } from '../pages/RecipeCreator/RecipeCreator';
+import { Home } from 'app/pages/Home/Home';
+import { RecipeCreator } from 'app/pages/RecipeCreator/RecipeCreator';
 
 export const RouterSwitch = () => {
   return (
