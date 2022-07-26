@@ -17,15 +17,18 @@
 
 .creatorForm {
   @include flex(center, flex-start, column);
-  input {
-    margin: 15px 15px 15px 0;
+  label {
+    @include flex(center, flex-start, column);
+    width: 100%;
+    color: white;
   }
   .input {
     width: 200px;
     height: 25px;
+    margin: 15px 15px 15px 0;
   }
   .stepsTextArea {
-    display: flex;
+    margin-top: 15px;
     width: 400px;
     height: 300px;
     resize: vertical;
@@ -37,6 +40,30 @@
   margin-top: 15px;
 }
 
-.linkButton {
+.addButton,
+.returnButton {
   margin-top: 25px;
+}
+
+.redButton {
+}
+.redButton {
+  background-color: rgb(180, 34, 34);
+}
+
+.greenButton {
+  background-color: rgb(46, 141, 37);
+}
+
+.message {
+  position: absolute;
+  top: 50;
+  left: 50;
+  color: white;
+  @include flex(center, center, row);
+  width: 600px;
+  height: 150px;
+  font-size: 30px;
+  background-color: $primary;
+  border-radius: 15px;
 }

@@ -6,27 +6,42 @@ import styles from './RecipeForm.module.scss';
 import { recipes } from '../RecipesList/recipes-meta';
 import { Recipe } from '../Recipe/Recipe';
 
-interface values {
-  title: string;
-  description: string;
-  ingredient: string;
-  ingredients: string[];
-}
-
-let dataValues: values = {
-  title: '',
-  description: '',
-  ingredient: '',
-  ingredients: [],
-};
-
 export const RecipeForm = () => {
-  const [data, setData] = useState(dataValues.ingredients);
+  const input: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input');
+  let ingredients: string[] = [];
+  const [valid, setValid] = useState(false);
+  const [ingredientsList, setIngredientsList] = useState(ingredients);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [ingredient, setIngredient] = useState('');
+  const [message, setMessage] = useState(false);
+
+  const showMessage = () => {
+    setTimeout(() => {
+      setMessage(false);
+    }, 2000);
+  };
+
   const resetDataValues = () => {
-    dataValues.title = '';
-    dataValues.description = '';
-    dataValues.ingredient = '';
-    dataValues.ingredients = [];
+    setTitle('');
+    setDescription('');
+    setIngredient('');
+    setIngredientsList([]);
+    input.forEach((item) => {
+      item.value = '';
+    });
+  };
+
+  const checkAndAdd = () => {
+    if (!title || !description || ingredientsList.length === 0) {
+      setValid(false);
+    } else {
+      setValid(true);
+      recipes.push(<Recipe title={title} description={description} ingredients={ingredientsList} key="" />);
+      resetDataValues();
+      setMessage(true);
+      showMessage();
+    }
   };
 
   return (
@@ -34,82 +49,93 @@ export const RecipeForm = () => {
       <div className={styles.creatorHeader}>
         <h2>Add Recipe</h2>
       </div>
-      <div className={styles.creatorForm}>
-        <input
-          className={clsx(styles.nameInput, styles.input)}
-          type="text"
-          placeholder="Recipe Name"
-          onChange={(e) => {
-            dataValues.title = e.target.value;
-          }}
-          required
-        />
-        <textarea
-          name="Recipe Steps"
-          className={styles.stepsTextArea}
-          cols={30}
-          rows={10}
-          placeholder="Recipe Steps"
-          onChange={(e) => {
-            dataValues.description = e.target.value;
-          }}
-          required
-        ></textarea>
+      <form className={styles.creatorForm} onSubmit={checkAndAdd}>
+        <label>
+          Title:
+          <input
+            className={clsx(styles.nameInput, styles.input, 'input')}
+            type="text"
+            placeholder="Title"
+            name="Title"
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            required
+          />
+        </label>
+        <label>
+          Recipe Steps:
+          <textarea
+            name="Recipe Steps"
+            className={clsx(styles.stepsTextArea, 'input')}
+            cols={30}
+            rows={10}
+            placeholder="Recipe Steps"
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            required
+          />
+        </label>
+
         <div className={styles.ingredientsContainer}>
           <p>Ingredients:</p>
           <ul>
-            {data.map((item, index) => (
+            {ingredientsList.map((item, index) => (
               <li key={index}>{item}</li>
             ))}
           </ul>
-          <div>
-            <input
-              className={clsx(styles.recipeInput, styles.input, 'ingredientInput')}
-              type="text"
-              placeholder="Add Ingredient"
-              onChange={(e) => {
-                dataValues.ingredient = e.target.value;
-              }}
-              required
-            />
+          <div className={styles.ingredientsContainer}>
+            <label>
+              Add Ingredient:
+              <input
+                className={clsx(styles.recipeInput, styles.input, 'ingredientInput')}
+                type="text"
+                placeholder="Add Ingredient"
+                onChange={(e) => {
+                  setIngredient(e.target.value);
+                }}
+                required
+              />
+            </label>
             <Button
               children="Add Ingredient"
               onClick={() => {
-                const input: HTMLInputElement = document.querySelector('.ingredientInput')!;
-                if (dataValues.ingredient === '') {
+                const ingredientInput: HTMLInputElement = document.querySelector('.ingredientInput')!;
+                if (ingredient === '') {
                   throw Error('Ingredient input cannot be empty');
                 }
-                setData([...data, dataValues.ingredient]);
-                dataValues.ingredients.push(dataValues.ingredient);
-                dataValues.ingredient = '';
-                input.value = '';
+                setIngredientsList([...ingredientsList, ingredient]);
+                ingredientsList.push(ingredient);
+                setIngredient('');
+                ingredientInput.value = '';
               }}
             />
           </div>
         </div>
-      </div>
+      </form>
+      <Button
+        children="Add Recipe"
+        onClick={() => {
+          checkAndAdd();
+          showMessage();
+        }}
+        type="submit"
+        className={styles.addButton}
+      />
       <LinkButton
         onClick={() => {
-          let isValid = '';
-          if (dataValues.title === '') {
-            throw Error('Title input cannot be empty');
-          } else if (dataValues.description === '') {
-            throw Error('description area cannot be empty');
-          } else {
-            recipes.push(
-              <Recipe
-                title={dataValues.title}
-                description={dataValues.description}
-                ingredients={dataValues.ingredients}
-              />,
-            );
-            resetDataValues();
+          if (!valid) {
+            if (window.confirm('All changes will be lost')) {
+              setValid(true);
+            }
           }
         }}
-        className={styles.linkButton}
-        to="/"
-        children="Add Recipe"
+        className={clsx(!valid ? styles.redButton : styles.greenButton, styles.returnButton)}
+        to={valid ? '/' : ''}
+        children="Return"
       />
+      {message && <div className={styles.message}> Re</div>}
     </div>
   );
 };
