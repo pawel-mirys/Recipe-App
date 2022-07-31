@@ -8,6 +8,10 @@
   margin: auto;
 }
 
+p {
+  margin: 0;
+}
+
 .creatorHeader {
   width: 100%;
   background-color: $secondary;
@@ -25,7 +29,7 @@
   .input {
     width: 200px;
     height: 25px;
-    margin: 15px 15px 15px 0;
+    margin: 15px 15px 0px 0;
   }
   .stepsTextArea {
     margin-top: 15px;
@@ -46,8 +50,6 @@
 }
 
 .redButton {
-}
-.redButton {
   background-color: rgb(180, 34, 34);
 }
 
@@ -55,15 +57,12 @@
   background-color: rgb(46, 141, 37);
 }
 
-.message {
-  position: absolute;
-  top: 50;
-  left: 50;
-  color: white;
-  @include flex(center, center, row);
-  width: 600px;
-  height: 150px;
-  font-size: 30px;
-  background-color: $primary;
-  border-radius: 15px;
+.inputInvalid {
+  border: 2px solid rgb(180, 34, 34);
+}
+
+.errorMessage {
+  color: rgb(228, 18, 18);
+  margin-bottom: 10px;
+  font-size: 14px;
 }

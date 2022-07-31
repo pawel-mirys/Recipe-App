@@ -1,51 +1,53 @@
 @import '../../../variables.scss';
 .recipe {
-    width: 50%;
-    border: 2px solid $primary;
-    background: $secondary;
-    border-radius: 5px;
-    margin: 15px 0px;
-    &:hover {
-        cursor: pointer;
-        background: #3c3a3f;
-    }
+  width: 100%;
+  border: 2px solid $primary;
+  background: $secondary;
+  border-radius: 5px;
+  margin: 15px 0px;
+  &:hover {
+    cursor: pointer;
+    background: #3c3a3f;
+  }
 }
 
 .recipeContainer {
-    @include flex(space-around, center, column);
-    width: 100%;
+  @include flex(space-around, center, column);
+  width: 100%;
 }
 
 .titleContainer,
 .descriptionContainer,
 .ingredients {
-    width: 100%;
-    border-bottom: 2px solid $primary;
-    margin: 0;
-    @include flex(center, center, none);
+  width: 100%;
+  border-bottom: 2px solid $primary;
+  margin: 0;
+  @include flex(center, center, none);
 }
 
 .titleContainer {
-    @include flex(center, center, none);
-    height: 50px;
-    .title {
-        margin: 0;
-    }
+  @include flex(center, center, none);
+  height: 40px;
+  .title {
+    margin: 0;
+  }
 }
 
 .descriptionContainer {
-    min-height: 60px;
-    .description {
-        margin: 0;
-    }
+  min-height: 100px;
+  .description {
+    margin: 0;
+    padding: 15px;
+    line-height: 22px;
+  }
 }
 
 .ingredients {
-    @include flex(center, center, column);
-    width: 100%;
-    min-height: 100px;
-    border: none;
-    div {
-        margin: 5px 0;
-    }
+  @include flex(center, center, column);
+  width: 100%;
+  min-height: 60px;
+  border: none;
+  div {
+    margin: 5px 0;
+  }
 }

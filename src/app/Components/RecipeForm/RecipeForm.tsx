@@ -34,15 +34,7 @@ export const RecipeForm = () => {
   };
 
   const pushRecipe = () => {
-    if (!title) {
-      console.log('title cannot be empty');
-    }
-    if (!description) {
-      console.log('description cannot be empty');
-    }
-    if (ingredientsList.length === 0) {
-      console.log('Recipe needs ingredients');
-    } else {
+    if (valid) {
       recipes.push(<Recipe title={title} description={description} ingredients={ingredientsList} />);
       resetDataValues();
     }
@@ -57,37 +49,40 @@ export const RecipeForm = () => {
         <label>
           Title:
           <input
-            className={clsx(styles.nameInput, styles.input, 'input')}
+            className={clsx(!title && styles.inputInvalid, styles.nameInput, styles.input, 'input')}
             type="text"
             placeholder="Title"
             name="Title"
             onChange={(e) => {
               setTitle((prevTitle) => (prevTitle = e.target.value));
             }}
-            required
           />
+          {!title && <span className={styles.errorMessage}>Recipe needs title</span>}
         </label>
         <label>
-          Recipe Steps:
+          Recipe Description:
           <textarea
-            name="Recipe Steps"
-            className={clsx(styles.stepsTextArea, 'input')}
+            name="Recipe Description"
+            className={clsx(!title && styles.inputInvalid, styles.stepsTextArea, 'input')}
             cols={30}
             rows={10}
             placeholder="Recipe Steps"
             onChange={(e) => {
               setDescription((prevSteps) => (prevSteps = e.target.value));
             }}
-            required
           />
+          {!description && <span className={styles.errorMessage}>Recipe need description</span>}
         </label>
 
         <div className={styles.ingredientsContainer}>
-          <p>Ingredients:</p>
+          <p>Ingredients: {ingredientsList.length}</p>
           <ul>
             {ingredientsList.map((item, index) => (
               <li key={index}>{item}</li>
             ))}
+            {ingredientsList.length === 0 && (
+              <span className={styles.errorMessage}>Use input below to add some ingredients</span>
+            )}
           </ul>
           <div className={styles.ingredientsContainer}>
             <label>
@@ -99,10 +94,10 @@ export const RecipeForm = () => {
                 onChange={(e) => {
                   setIngredient((prevIngredient) => (prevIngredient = e.target.value));
                 }}
-                required
               />
             </label>
             <Button
+              className={styles.returnButton}
               children="Add Ingredient"
               onClick={() => {
                 const ingredientInput: HTMLInputElement = document.querySelector('.ingredientInput')!;

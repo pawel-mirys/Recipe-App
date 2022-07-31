@@ -1,19 +1,10 @@
-import { createContext } from 'react';
-
 import styles from './Recipe.module.scss';
 
 type RecipeProps = {
   title: string;
   description: string;
   ingredients: string[];
-  key?: string | number;
 };
-
-export const RecipeContext = createContext<{
-  title: RecipeProps['title'];
-  description: RecipeProps['description'];
-  ingredients: RecipeProps['ingredients'];
-}>;
 
 export const Recipe = ({ title, description, ingredients }: RecipeProps) => {
   return (
