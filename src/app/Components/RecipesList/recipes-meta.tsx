@@ -1,5 +1,3 @@
-import { Recipe } from '../Recipe/Recipe';
-
 type Recipes = {
   recipes: JSX.Element[];
 };

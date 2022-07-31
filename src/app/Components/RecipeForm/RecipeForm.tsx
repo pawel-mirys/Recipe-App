@@ -1,26 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
+
 import { LinkButton } from 'ui/LinkButton/LinkButton';
 import { Button } from 'ui/Button/Button';
 import styles from './RecipeForm.module.scss';
-import { recipes } from 'app/Components/RecipesList/recipes-meta';
-import { Recipe } from 'app/Components/Recipe/Recipe';
+import { recipes } from 'app/components/RecipesList/recipes-meta';
+import { Recipe } from 'app/components/Recipe/Recipe';
 
 export const RecipeForm = () => {
   const input: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input');
-  let ingredients: string[] = [];
   const [valid, setValid] = useState(false);
-  const [ingredientsList, setIngredientsList] = useState(ingredients);
+  const [ingredientsList, setIngredientsList] = useState<string[]>([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [ingredient, setIngredient] = useState('');
-  const [message, setMessage] = useState(false);
 
-  const showMessage = () => {
-    setTimeout(() => {
-      setMessage(false);
-    }, 2000);
-  };
+  useEffect(() => {
+    if (!title || !description || ingredientsList.length === 0) {
+      setValid((prevValid) => (prevValid = false));
+    } else {
+      setValid((prevValid) => (prevValid = true));
+    }
+  }, [title, description, ingredientsList]);
 
   const resetDataValues = () => {
     setTitle('');
@@ -32,15 +33,18 @@ export const RecipeForm = () => {
     });
   };
 
-  const checkAndAdd = () => {
-    if (!title || !description || ingredientsList.length === 0) {
-      setValid(false);
+  const pushRecipe = () => {
+    if (!title) {
+      console.log('title cannot be empty');
+    }
+    if (!description) {
+      console.log('description cannot be empty');
+    }
+    if (ingredientsList.length === 0) {
+      console.log('Recipe needs ingredients');
     } else {
-      setValid(true);
-      recipes.push(<Recipe title={title} description={description} ingredients={ingredientsList} key="" />);
+      recipes.push(<Recipe title={title} description={description} ingredients={ingredientsList} />);
       resetDataValues();
-      setMessage(true);
-      showMessage();
     }
   };
 
@@ -49,7 +53,7 @@ export const RecipeForm = () => {
       <div className={styles.creatorHeader}>
         <h2>Add Recipe</h2>
       </div>
-      <form className={styles.creatorForm} onSubmit={checkAndAdd}>
+      <form className={styles.creatorForm}>
         <label>
           Title:
           <input
@@ -58,7 +62,7 @@ export const RecipeForm = () => {
             placeholder="Title"
             name="Title"
             onChange={(e) => {
-              setTitle(e.target.value);
+              setTitle((prevTitle) => (prevTitle = e.target.value));
             }}
             required
           />
@@ -72,7 +76,7 @@ export const RecipeForm = () => {
             rows={10}
             placeholder="Recipe Steps"
             onChange={(e) => {
-              setDescription(e.target.value);
+              setDescription((prevSteps) => (prevSteps = e.target.value));
             }}
             required
           />
@@ -93,7 +97,7 @@ export const RecipeForm = () => {
                 type="text"
                 placeholder="Add Ingredient"
                 onChange={(e) => {
-                  setIngredient(e.target.value);
+                  setIngredient((prevIngredient) => (prevIngredient = e.target.value));
                 }}
                 required
               />
@@ -114,28 +118,15 @@ export const RecipeForm = () => {
           </div>
         </div>
       </form>
-      <Button
-        children="Add Recipe"
-        onClick={() => {
-          checkAndAdd();
-          showMessage();
-        }}
-        type="submit"
-        className={styles.addButton}
-      />
+
       <LinkButton
         onClick={() => {
-          if (!valid) {
-            if (window.confirm('All changes will be lost')) {
-              setValid(true);
-            }
-          }
+          pushRecipe();
         }}
         className={clsx(!valid ? styles.redButton : styles.greenButton, styles.returnButton)}
         to={valid ? '/' : ''}
-        children="Return"
+        children="Add Recipe"
       />
-      {message && <div className={styles.message}> Recipe has been added!</div>}
     </div>
   );
 };

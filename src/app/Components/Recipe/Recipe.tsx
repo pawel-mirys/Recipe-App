@@ -15,9 +15,15 @@ export const RecipeContext = createContext<{
   ingredients: RecipeProps['ingredients'];
 }>;
 
-export const Recipe = ({ title, description, ingredients, key }: RecipeProps) => {
+export const Recipe = ({ title, description, ingredients }: RecipeProps) => {
   return (
-    <div className={styles.recipe} key={title}>
+    <div
+      onClick={() => {
+        console.log(title, description, ingredients);
+      }}
+      className={styles.recipe}
+      key={title}
+    >
       <div className={styles.recipeContainer}>
         <div className={styles.titleContainer}>
           <h3 className={styles.title}>{title}</h3>

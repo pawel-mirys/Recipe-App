@@ -1,5 +1,5 @@
 import styles from './Home.module.scss';
-import { RecipesList } from 'app/Components/RecipesList/RecipesList'; // fix the path
+import { RecipesList } from 'app/components/RecipesList/RecipesList';
 import { LinkButton } from 'ui/LinkButton/LinkButton';
 
 export const Home = () => {
