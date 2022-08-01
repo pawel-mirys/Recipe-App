@@ -1,5 +1,5 @@
 import styles from './RecipesList.module.scss';
-import { recipes } from './recipes-meta';
+import { recipes } from 'app/Components/RecipesList/recipes-meta';
 
 export const RecipesList = () => {
   let listItem = recipes.map((item, index) => {

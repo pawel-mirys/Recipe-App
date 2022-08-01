@@ -4,8 +4,8 @@ import clsx from 'clsx';
 import { LinkButton } from 'ui/LinkButton/LinkButton';
 import { Button } from 'ui/Button/Button';
 import styles from './RecipeForm.module.scss';
-import { recipes } from 'app/components/RecipesList/recipes-meta';
-import { Recipe } from 'app/components/Recipe/Recipe';
+import { recipes } from 'app/Components/RecipesList/recipes-meta';
+import { Recipe } from 'app/Components/Recipe/Recipe';
 
 export const RecipeForm = () => {
   const input: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input');
@@ -63,7 +63,7 @@ export const RecipeForm = () => {
           Recipe Description:
           <textarea
             name="Recipe Description"
-            className={clsx(!title && styles.inputInvalid, styles.stepsTextArea, 'input')}
+            className={clsx(!description && styles.inputInvalid, styles.stepsTextArea, 'input')}
             cols={30}
             rows={10}
             placeholder="Recipe Steps"
