@@ -35,7 +35,14 @@ export const RecipeForm = () => {
 
   const pushRecipe = () => {
     if (valid) {
-      recipes.push(<Recipe title={title} description={description} ingredients={ingredientsList} />);
+      recipes.push(
+        <Recipe
+          title={title}
+          description={description}
+          ingredients={ingredientsList}
+          id={`Recipe: ${Math.random()}`}
+        />,
+      );
       resetDataValues();
     }
   };
