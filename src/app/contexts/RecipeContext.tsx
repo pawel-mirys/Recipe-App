@@ -8,11 +8,12 @@ type ContextProps = {
 
 export const RecipeContext = createContext<{
   recipesList: JSX.Element[];
-  recipeIngredients: string[];
+  recipeIngredientsList: string[];
   addRecipe: () => void;
   setNewTitle: (title: string) => void;
   setNewDescription: (description: string) => void;
-  addNewIngredient: (ingredients: string) => void;
+  setNewIngredient: (ingredient: string) => void;
+  addNewIngredient: () => void;
 } | null>(null);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -20,16 +21,20 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
   const [recipesList, setRecipesList] = useState<JSX.Element[]>([]);
   const [recipeTitle, setRecipeTitle] = useState('');
   const [recipeDescription, setRecipeDescription] = useState('');
-  const [recipeIngredients, setRecipeIngredients] = useState<string[]>([]);
+  const [recipeIngredient, setRecipeIngredient] = useState('');
+  const [recipeIngredientsList, setRecipeIngredientsList] = useState<string[]>([]);
 
   const setNewTitle = (title: string) => {
-    setRecipeTitle(title);
+    setRecipeTitle((prevTitle) => (prevTitle = title));
   };
   const setNewDescription = (description: string) => {
-    setRecipeDescription(description);
+    setRecipeDescription((prevDescription) => (prevDescription = description));
   };
-  const addNewIngredient = (ingredient: string) => {
-    setRecipeIngredients([...recipeIngredients, ingredient]);
+  const setNewIngredient = (ingredient: string) => {
+    setRecipeIngredient((prevIngredient) => (prevIngredient = ingredient));
+  };
+  const addNewIngredient = () => {
+    setRecipeIngredientsList([...recipeIngredientsList, recipeIngredient]);
   };
 
   const addRecipe = () => {
@@ -37,16 +42,25 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
       <Recipe
         title={recipeTitle}
         description={recipeDescription}
-        ingredients={recipeIngredients}
+        ingredients={recipeIngredientsList}
         id={`Recipe No. ${Math.random()}`}
       />
     );
     setRecipesList([...recipesList, newRecipe]);
   };
 
+  console.log(recipeIngredientsList, recipeIngredient);
   return (
     <RecipeContext.Provider
-      value={{ recipesList, recipeIngredients, addRecipe, setNewTitle, setNewDescription, addNewIngredient }}
+      value={{
+        recipesList,
+        recipeIngredientsList,
+        addRecipe,
+        setNewTitle,
+        setNewDescription,
+        setNewIngredient,
+        addNewIngredient,
+      }}
     >
       {children}
     </RecipeContext.Provider>
