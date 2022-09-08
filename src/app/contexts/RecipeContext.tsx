@@ -2,27 +2,33 @@ import { createContext, useState } from 'react';
 
 import { Recipe } from 'app/Components/Recipe/Recipe';
 
+type ContextProps = {
+  children: JSX.Element | React.ReactElement;
+};
+
 export const RecipeContext = createContext<{
-  recipes: JSX.Element[];
+  recipesList: JSX.Element[];
+  recipeIngredients: string[];
   addRecipe: () => void;
-  useTitle: (title: string) => void;
-  useDescription: (description: string) => void;
-  useIngredients: (ingredients: string) => void;
+  setNewTitle: (title: string) => void;
+  setNewDescription: (description: string) => void;
+  addNewIngredient: (ingredients: string) => void;
 } | null>(null);
 
-const RecipeProvider = (children: JSX.Element) => {
-  const [recipes, setRecipes] = useState<JSX.Element[]>([]);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const RecipeContextProvider = ({ children }: ContextProps) => {
+  const [recipesList, setRecipesList] = useState<JSX.Element[]>([]);
   const [recipeTitle, setRecipeTitle] = useState('');
   const [recipeDescription, setRecipeDescription] = useState('');
   const [recipeIngredients, setRecipeIngredients] = useState<string[]>([]);
 
-  const useTitle = (newTitle: string) => {
-    setRecipeTitle(newTitle);
+  const setNewTitle = (title: string) => {
+    setRecipeTitle(title);
   };
-  const useDescription = (newDescription: string) => {
-    setRecipeDescription(newDescription);
+  const setNewDescription = (description: string) => {
+    setRecipeDescription(description);
   };
-  const useIngredients = (ingredient: string) => {
+  const addNewIngredient = (ingredient: string) => {
     setRecipeIngredients([...recipeIngredients, ingredient]);
   };
 
@@ -35,11 +41,13 @@ const RecipeProvider = (children: JSX.Element) => {
         id={`Recipe No. ${Math.random()}`}
       />
     );
-    setRecipes([...recipes, newRecipe]);
+    setRecipesList([...recipesList, newRecipe]);
   };
 
   return (
-    <RecipeContext.Provider value={{ recipes, addRecipe, useTitle, useDescription, useIngredients }}>
+    <RecipeContext.Provider
+      value={{ recipesList, recipeIngredients, addRecipe, setNewTitle, setNewDescription, addNewIngredient }}
+    >
       {children}
     </RecipeContext.Provider>
   );
