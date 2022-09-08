@@ -7,7 +7,6 @@ import styles from './RecipeForm.module.scss';
 
 export const RecipeForm = () => {
   const recipeContext = useContext(RecipeContext);
-  const input: NodeListOf<HTMLInputElement> = document.querySelectorAll('input')!;
   const ingredientInput: HTMLInputElement = document.querySelector('.ingredientInput')!;
 
   const inputHandler = (e: React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>): string => {
@@ -20,7 +19,7 @@ export const RecipeForm = () => {
       <label htmlFor="Title">
         Title:
         <input
-          className={clsx(styles.nameInput, styles.input, 'input')}
+          className={clsx(!recipeContext?.recipeTitle && styles.inputInvalid, styles.nameInput, styles.input, 'input')}
           type="text"
           placeholder="Title"
           name="Title"
@@ -33,7 +32,7 @@ export const RecipeForm = () => {
         Recipe Description:
         <textarea
           name="Recipe Description"
-          className={clsx(styles.stepsTextArea, 'input')}
+          className={clsx(!recipeContext?.recipeDescription && styles.inputInvalid, styles.stepsTextArea, 'input')}
           cols={30}
           rows={10}
           placeholder="Recipe Steps"
@@ -56,7 +55,12 @@ export const RecipeForm = () => {
           <label>
             Add Ingredient:
             <input
-              className={clsx(styles.recipeInput, styles.input, 'ingredientInput')}
+              className={clsx(
+                !recipeContext?.recipeIngredient && styles.inputInvalid,
+                styles.recipeInput,
+                styles.input,
+                'ingredientInput',
+              )}
               type="text"
               placeholder="Add Ingredient"
               onChange={(e) => {
@@ -68,8 +72,12 @@ export const RecipeForm = () => {
             className={styles.returnButton}
             children="Add Ingredient"
             onClick={() => {
-              recipeContext?.addNewIngredient();
-              ingredientInput.nodeValue = '';
+              if (recipeContext?.recipeIngredient === '') {
+              } else {
+                recipeContext?.addNewIngredient();
+                recipeContext?.setNewIngredient('');
+                ingredientInput.value = '';
+              }
             }}
           />
         </div>

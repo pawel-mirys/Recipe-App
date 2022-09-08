@@ -9,6 +9,9 @@ type ContextProps = {
 export const RecipeContext = createContext<{
   recipesList: JSX.Element[];
   recipeIngredientsList: string[];
+  recipeTitle: string;
+  recipeDescription: string;
+  recipeIngredient: string;
   addRecipe: () => void;
   setNewTitle: (title: string) => void;
   setNewDescription: (description: string) => void;
@@ -47,14 +50,17 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
       />
     );
     setRecipesList([...recipesList, newRecipe]);
+    setRecipeIngredientsList([]);
   };
 
-  console.log(recipeIngredientsList, recipeIngredient);
   return (
     <RecipeContext.Provider
       value={{
         recipesList,
         recipeIngredientsList,
+        recipeTitle,
+        recipeDescription,
+        recipeIngredient,
         addRecipe,
         setNewTitle,
         setNewDescription,

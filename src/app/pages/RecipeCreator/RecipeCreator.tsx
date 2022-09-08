@@ -1,11 +1,24 @@
 import { RecipeForm } from 'app/Components/RecipeForm/RecipeForm';
 import { RecipeContext } from 'app/contexts/RecipeContext';
-import { useContext } from 'react';
+import clsx from 'clsx';
+import { useContext, useEffect, useState } from 'react';
 
 import { LinkButton } from 'ui/LinkButton/LinkButton';
 import styles from './RecipeCreator.module.scss';
 export const RecipeCreator = () => {
+  const [valid, setValid] = useState(false);
   const recipeContext = useContext(RecipeContext);
+
+  useEffect(() => {
+    if (
+      recipeContext?.recipeTitle !== '' &&
+      recipeContext?.recipeDescription !== '' &&
+      recipeContext?.recipeIngredientsList.length !== 0
+    ) {
+      setValid((prevValid) => (prevValid = true));
+    }
+  }, [recipeContext?.recipeTitle, recipeContext?.recipeDescription, recipeContext?.recipeIngredientsList]);
+
   return (
     <div className={styles.creatorContainer}>
       <div className={styles.creatorHeader}>
@@ -14,10 +27,12 @@ export const RecipeCreator = () => {
       <RecipeForm />
       <LinkButton
         onClick={() => {
-          recipeContext?.addRecipe();
+          if (valid) {
+            recipeContext?.addRecipe();
+          }
         }}
-        className={''}
-        to={'/'}
+        className={clsx(!valid ? styles.redButton : styles.greenButton, styles.returnButton)}
+        to={!valid ? '' : '/'}
         children="Add Recipe"
       />
     </div>
