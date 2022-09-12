@@ -4,9 +4,10 @@ type RecipeProps = {
   title: string;
   description: string;
   ingredients: string[];
+  id: string;
 };
 
-export const Recipe = ({ title, description, ingredients }: RecipeProps) => {
+export const Recipe = ({ title, description, ingredients, id }: RecipeProps) => {
   return (
     <div
       onClick={() => {
@@ -14,6 +15,7 @@ export const Recipe = ({ title, description, ingredients }: RecipeProps) => {
       }}
       className={styles.recipe}
       key={title}
+      id={id}
     >
       <div className={styles.recipeContainer}>
         <div className={styles.titleContainer}>
