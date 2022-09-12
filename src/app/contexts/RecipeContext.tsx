@@ -39,7 +39,11 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
   const addNewIngredient = () => {
     setRecipeIngredientsList([...recipeIngredientsList, recipeIngredient]);
   };
-
+  const resetValues = () => {
+    setRecipeIngredientsList([]);
+    setRecipeTitle('');
+    setRecipeDescription('');
+  };
   const addRecipe = () => {
     const newRecipe: JSX.Element = (
       <Recipe
@@ -50,7 +54,7 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
       />
     );
     setRecipesList([...recipesList, newRecipe]);
-    setRecipeIngredientsList([]);
+    resetValues();
   };
 
   return (
