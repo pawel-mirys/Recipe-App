@@ -10,4 +10,9 @@
 .listItem {
   min-width: 500px;
   max-width: 800px;
+  .previewLink {
+    width: 100%;
+    height: 100%;
+    margin: 15px 0px;
+  }
 }
