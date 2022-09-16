@@ -1,3 +1,5 @@
+import { RecipeContext } from 'app/contexts/RecipeContext';
+import { useContext } from 'react';
 import styles from './Recipe.module.scss';
 
 type RecipeProps = {
@@ -8,10 +10,11 @@ type RecipeProps = {
 };
 
 export const Recipe = ({ title, description, ingredients, id }: RecipeProps) => {
+  const context = useContext(RecipeContext);
   return (
     <div
       onClick={() => {
-        console.log(title, description, ingredients);
+        console.log(context?.recipesList);
       }}
       className={styles.recipe}
       key={title}

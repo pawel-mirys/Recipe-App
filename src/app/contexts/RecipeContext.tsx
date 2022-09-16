@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import { Recipe } from 'app/Components/Recipe/Recipe';
 
@@ -7,7 +7,7 @@ type ContextProps = {
 };
 
 export const RecipeContext = createContext<{
-  recipesList: JSX.Element[];
+  recipesList: { title: string; description: string; ingredients: string[] }[];
   recipeIngredientsList: string[];
   recipeTitle: string;
   recipeDescription: string;
@@ -21,7 +21,7 @@ export const RecipeContext = createContext<{
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const RecipeContextProvider = ({ children }: ContextProps) => {
-  const [recipesList, setRecipesList] = useState<JSX.Element[]>([]);
+  const [recipesList, setRecipesList] = useState<{ title: string; description: string; ingredients: string[] }[]>([]);
   const [recipeTitle, setRecipeTitle] = useState('');
   const [recipeDescription, setRecipeDescription] = useState('');
   const [recipeIngredient, setRecipeIngredient] = useState('');
@@ -45,14 +45,11 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
     setRecipeDescription('');
   };
   const addRecipe = () => {
-    const newRecipe: JSX.Element = (
-      <Recipe
-        title={recipeTitle}
-        description={recipeDescription}
-        ingredients={recipeIngredientsList}
-        id={`Recipe No. ${Math.random()}`}
-      />
-    );
+    const newRecipe: { title: string; description: string; ingredients: string[] } = {
+      title: recipeTitle,
+      description: recipeDescription,
+      ingredients: recipeIngredientsList,
+    };
     setRecipesList([...recipesList, newRecipe]);
     resetValues();
   };
