@@ -1,5 +1,6 @@
-import { RecipeContext } from 'app/contexts/RecipeContext';
 import { useContext } from 'react';
+
+import { RecipeContext } from 'app/contexts/RecipeContext';
 import styles from './Recipe.module.scss';
 
 type RecipeProps = {

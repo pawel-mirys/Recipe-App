@@ -11,13 +11,8 @@ export const RecipesList = () => {
   let listItem = recipeContext?.recipesList.map((item, index) => {
     return (
       <div className={styles.listItem} key={index}>
-        <LinkButton to="/preview" className={styles.previewLink}>
-          <Recipe
-            title={item.title}
-            description={item.description}
-            ingredients={item.ingredients}
-            id={`Recipe No. ${index + 1}`}
-          />
+        <LinkButton to="" className={styles.previewLink}>
+          <Recipe title={item.title} description={item.description} ingredients={item.ingredients} id={item.id} />
         </LinkButton>
       </div>
     );

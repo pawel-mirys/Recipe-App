@@ -1,13 +1,11 @@
 import { createContext, useEffect, useState } from 'react';
 
-import { Recipe } from 'app/Components/Recipe/Recipe';
-
 type ContextProps = {
   children: JSX.Element | React.ReactElement;
 };
 
 export const RecipeContext = createContext<{
-  recipesList: { title: string; description: string; ingredients: string[] }[];
+  recipesList: { title: string; description: string; ingredients: string[]; id: string }[];
   recipeIngredientsList: string[];
   recipeTitle: string;
   recipeDescription: string;
@@ -21,11 +19,14 @@ export const RecipeContext = createContext<{
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const RecipeContextProvider = ({ children }: ContextProps) => {
-  const [recipesList, setRecipesList] = useState<{ title: string; description: string; ingredients: string[] }[]>([]);
+  const [recipesList, setRecipesList] = useState<
+    { title: string; description: string; ingredients: string[]; id: string }[]
+  >([]);
   const [recipeTitle, setRecipeTitle] = useState('');
   const [recipeDescription, setRecipeDescription] = useState('');
   const [recipeIngredient, setRecipeIngredient] = useState('');
   const [recipeIngredientsList, setRecipeIngredientsList] = useState<string[]>([]);
+  const [recipeId, setRecipeId] = useState('');
 
   const setNewTitle = (title: string) => {
     setRecipeTitle((prevTitle) => (prevTitle = title));
@@ -39,16 +40,22 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
   const addNewIngredient = () => {
     setRecipeIngredientsList([...recipeIngredientsList, recipeIngredient]);
   };
+
+  useEffect(() => {
+    setRecipeId(`${recipeId.length + 1}`);
+  }, [recipesList.length, recipeId]);
+
   const resetValues = () => {
     setRecipeIngredientsList([]);
     setRecipeTitle('');
     setRecipeDescription('');
   };
   const addRecipe = () => {
-    const newRecipe: { title: string; description: string; ingredients: string[] } = {
+    const newRecipe: { title: string; description: string; ingredients: string[]; id: string } = {
       title: recipeTitle,
       description: recipeDescription,
       ingredients: recipeIngredientsList,
+      id: `Recipe No. ${recipeId}`,
     };
     setRecipesList([...recipesList, newRecipe]);
     resetValues();
