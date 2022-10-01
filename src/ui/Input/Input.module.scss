@@ -1,0 +1,12 @@
+@import '/src//variables.scss';
+label {
+  @include flex(center, flex-start, column);
+  width: 100%;
+  color: white;
+  margin: 5px 0 5px 0;
+}
+.input {
+  width: 200px;
+  height: 25px;
+  margin: 15px 15px 0px 0;
+}
