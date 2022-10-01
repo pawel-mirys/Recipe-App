@@ -1,4 +1,4 @@
-@import '../../../variables.scss';
+@import '/src//variables.scss';
 
 .creatorContainer {
   @include flex(center, center, column);
@@ -10,6 +10,7 @@
 
 p {
   margin: 0;
+  color: white;
 }
 
 .creatorHeader {
@@ -21,22 +22,6 @@ p {
 
 .creatorForm {
   @include flex(center, flex-start, column);
-  label {
-    @include flex(center, flex-start, column);
-    width: 100%;
-    color: white;
-  }
-  .input {
-    width: 200px;
-    height: 25px;
-    margin: 15px 15px 0px 0;
-  }
-  .stepsTextArea {
-    margin-top: 15px;
-    width: 400px;
-    height: 300px;
-    resize: vertical;
-  }
 }
 
 .ingredientsContainer {
@@ -44,8 +29,7 @@ p {
   margin-top: 15px;
 }
 
-.addButton,
-.returnButton {
+.addButton {
   margin-top: 25px;
 }
 
@@ -65,4 +49,21 @@ p {
   color: rgb(228, 18, 18);
   margin-bottom: 10px;
   font-size: 14px;
+}
+
+.submitButton {
+  align-self: center;
+  width: 140px;
+  height: 40px;
+  font-weight: 500;
+  font-size: 14px;
+  color: white;
+  background: $primary;
+  border: none;
+  border-radius: 10px;
+  margin: 30px;
+  &:hover {
+    cursor: pointer;
+    background: #7d5c9e;
+  }
 }

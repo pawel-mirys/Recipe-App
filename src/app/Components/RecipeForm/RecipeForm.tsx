@@ -1,87 +1,93 @@
-import { useContext } from 'react';
-import clsx from 'clsx';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { RecipeContext } from 'app/contexts/RecipeContext';
 import { Button } from 'ui/Button/Button';
 import styles from './RecipeForm.module.scss';
+import { Input } from 'ui/Input/Input';
+import { TextArea } from 'ui/TextArea/TextArea';
+import clsx from 'clsx';
 
 export const RecipeForm = () => {
   const recipeContext = useContext(RecipeContext);
-  const ingredientInput: HTMLInputElement = document.querySelector('.ingredientInput')!;
+  const ingredientRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+  const [title, setTitle] = useState('');
+  const [description, setDescrption] = useState('');
+  const [ingredient, setIngredient] = useState('');
+  const [ingredientsList, setIngredientsList] = useState<string[]>([]);
+  const [valid, setValid] = useState(false);
 
-  const inputHandler = (e: React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>): string => {
-    const inputValue = e.target.value;
-    return inputValue;
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (valid === true) {
+      recipeContext?.addRecipe(title, description, ingredientsList);
+      navigate('/');
+    }
   };
 
+  const handleIngredientButton = () => {
+    if (ingredient !== '') {
+      setIngredientsList([...ingredientsList, ingredient]);
+      setIngredient((prev) => (prev = ''));
+      if (ingredientRef !== null) {
+        ingredientRef.current!.value = '';
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (title !== '' && description !== '' && ingredientsList.length !== 0) {
+      setValid(true);
+    }
+  }, [title, description, ingredient, ingredientsList]);
+
   return (
-    <form className={styles.creatorForm}>
-      <label htmlFor="Title">
-        Title:
-        <input
-          className={clsx(!recipeContext?.recipeTitle && styles.inputInvalid, styles.nameInput, styles.input, 'input')}
-          type="text"
-          placeholder="Title"
-          name="Title"
-          onChange={(e) => {
-            recipeContext?.setNewTitle(inputHandler(e));
-          }}
-        />
-      </label>
-      <label htmlFor="Recipe Description">
-        Recipe Description:
-        <textarea
-          name="Recipe Description"
-          className={clsx(!recipeContext?.recipeDescription && styles.inputInvalid, styles.stepsTextArea, 'input')}
-          cols={30}
-          rows={10}
-          placeholder="Recipe Steps"
-          onChange={(e) => {
-            recipeContext?.setNewDescription(inputHandler(e));
-          }}
-        />
-      </label>
+    <form onSubmit={handleSubmit} className={styles.creatorForm}>
+      <Input
+        htmlFor="Title"
+        className={clsx(title === '' && styles.inputInvalid)}
+        type="text"
+        placeHolder="Title"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          setTitle((prev) => (prev = e.target.value));
+        }}
+      />
+      {title === '' && <p className={styles.errorMessage}>Title cannot be empty</p>}
+      <TextArea
+        htmlFor="Recipe Description"
+        className={clsx(description === '' && styles.inputInvalid)}
+        placeHolder="Recipe Description"
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+          setDescrption((prev) => (prev = e.target.value));
+        }}
+      />
+      {description === '' && <p className={styles.errorMessage}>Description cannot be empty</p>}
       <div className={styles.ingredientsContainer}>
-        {recipeContext?.recipeIngredientsList.length === 0 && (
+        {ingredientsList.length === 0 && (
           <span className={styles.errorMessage}>Use input below to add some ingredients</span>
         )}
         <p>Ingredients:</p>
         <ul>
-          {recipeContext?.recipeIngredientsList.map((item, index) => {
+          {ingredientsList.map((item, index) => {
             return <li key={index}>{item}</li>;
           })}
         </ul>
         <div className={styles.ingredientsContainer}>
-          <label>
-            Add Ingredient:
-            <input
-              className={clsx(
-                !recipeContext?.recipeIngredient && styles.inputInvalid,
-                styles.recipeInput,
-                styles.input,
-                'ingredientInput',
-              )}
-              type="text"
-              placeholder="Add Ingredient"
-              onChange={(e) => {
-                recipeContext?.setNewIngredient(inputHandler(e));
-              }}
-            />
-          </label>
-          <Button
-            className={styles.returnButton}
-            children="Add Ingredient"
-            onClick={() => {
-              if (recipeContext?.recipeIngredient === '') {
-              } else {
-                recipeContext?.addNewIngredient();
-                recipeContext?.setNewIngredient('');
-                ingredientInput.value = '';
-              }
+          <Input
+            htmlFor="Ingredient"
+            className=""
+            type="text"
+            placeHolder="Add New Ingredient"
+            innerRef={ingredientRef}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setIngredient((prev) => (prev = e.target.value));
             }}
           />
+          <Button className={styles.returnButton} children="Add Ingredient" onClick={handleIngredientButton} />
         </div>
       </div>
+      <button className={styles.submitButton}>Add Recipe</button>
     </form>
   );
 };

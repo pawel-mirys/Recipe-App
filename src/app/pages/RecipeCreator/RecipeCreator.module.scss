@@ -1,68 +1,17 @@
 @import '../../../variables.scss';
 .creatorContainer {
-    @include flex(center, center, column);
-}
-
-.creatorContainer {
-    width: 100%;
-    margin: auto;
+  @include flex(center, center, column);
+  width: 100%;
+  margin: auto;
 }
 
 p {
-    margin: 0;
+  margin: 0;
 }
 
 .creatorHeader {
-    width: 100%;
-    background-color: $secondary;
-    color: white;
-    text-align: center;
-}
-
-.creatorForm {
-    @include flex(center, flex-start, column);
-    label {
-        @include flex(center, flex-start, column);
-        width: 100%;
-        color: white;
-    }
-    .input {
-        width: 200px;
-        height: 25px;
-        margin: 15px 15px 0px 0;
-    }
-    .stepsTextArea {
-        margin-top: 15px;
-        width: 400px;
-        height: 300px;
-        resize: vertical;
-    }
-}
-
-.ingredientsContainer {
-    color: white;
-    margin-top: 15px;
-}
-
-.addButton,
-.returnButton {
-    margin-top: 25px;
-}
-
-.redButton {
-    background-color: rgb(180, 34, 34);
-}
-
-.greenButton {
-    background-color: rgb(46, 141, 37);
-}
-
-.inputInvalid {
-    border: 2px solid rgb(180, 34, 34);
-}
-
-.errorMessage {
-    color: rgb(228, 18, 18);
-    margin-bottom: 10px;
-    font-size: 14px;
+  width: 100%;
+  background-color: $secondary;
+  color: white;
+  text-align: center;
 }
