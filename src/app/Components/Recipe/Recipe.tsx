@@ -1,8 +1,8 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { RecipeContext } from 'app/contexts/RecipeContext';
 import styles from './Recipe.module.scss';
-import { useNavigate } from 'react-router-dom';
 
 type RecipeProps = {
   title: string;

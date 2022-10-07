@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import { recipesListMeta } from 'app/Components/RecipesList/recipeList-meta';
 
@@ -32,9 +32,9 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
       title: title,
       description: description,
       ingredients: ingredientsList,
-      id: `Recipe No. ${recipesListMeta.length + 1}`,
+      id: `Recipe No. ${recipesList.length + 1}`,
     };
-    setRecipesList([...recipesListMeta, newRecipe]);
+    setRecipesList([...recipesList, newRecipe]);
   };
 
   return (
