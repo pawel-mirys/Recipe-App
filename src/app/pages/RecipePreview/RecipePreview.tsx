@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import styles from './RecipePreview.module.scss';
 import { RecipeContext } from 'app/contexts/RecipeContext';
+import { Button } from 'ui/Button/Button';
 
 export const RecipePreview = () => {
   const context = useContext(RecipeContext);
@@ -17,6 +18,14 @@ export const RecipePreview = () => {
           );
         })}
       </ul>
+      <div className={styles.controls}>
+        <Button onClick={() => {}} className={styles.editButton}>
+          Edit
+        </Button>
+        <Button onClick={() => {}} className={styles.deleteButton}>
+          Delete
+        </Button>
+      </div>
     </div>
   );
 };

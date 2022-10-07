@@ -2,7 +2,7 @@
 label {
   @include flex(center, flex-start, column);
   width: 100%;
-  color: white;
+  color: $white;
   margin: 5px 0 5px 0;
 }
 .input {

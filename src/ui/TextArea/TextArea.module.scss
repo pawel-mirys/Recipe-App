@@ -2,7 +2,7 @@
 label {
   @include flex(center, flex-start, column);
   width: 100%;
-  color: white;
+  color: $white;
 }
 .TextArea {
   margin-top: 15px;

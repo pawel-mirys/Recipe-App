@@ -1,7 +1,10 @@
 $primary: #6f439c;
 $secondary: #353239;
 $background: #2b292e;
-
+$focus: #7d5c9e;
+$red: #b42222;
+$green: #2e8d25;
+$white: #e2e1e1;
 @mixin flex($justify: none, $align: none, $direction: none) {
   display: flex;
   justify-content: $justify;
