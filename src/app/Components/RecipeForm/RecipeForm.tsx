@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import clsx from 'clsx';
 
 import { RecipeContext } from 'app/contexts/RecipeContext';
 import { Button } from 'ui/Button/Button';
 import styles from './RecipeForm.module.scss';
-import { Input } from 'ui/Input/Input';
 import { TextArea } from 'ui/TextArea/TextArea';
-import clsx from 'clsx';
+import { Input } from 'ui/Input/Input';
 
 export const RecipeForm = () => {
   const recipeContext = useContext(RecipeContext);

@@ -1,3 +1,7 @@
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { RecipeContext } from 'app/contexts/RecipeContext';
 import styles from './Recipe.module.scss';
 
 type RecipeProps = {
@@ -8,13 +12,15 @@ type RecipeProps = {
 };
 
 export const Recipe = ({ title, description, ingredients, id }: RecipeProps) => {
+  const context = useContext(RecipeContext);
+  const navigate = useNavigate();
   return (
     <div
       onClick={() => {
-        console.log(title, description, ingredients);
+        context?.setItem(title, description, ingredients, id);
+        navigate('/preview');
       }}
       className={styles.recipe}
-      key={title}
       id={id}
     >
       <div className={styles.recipeContainer}>
