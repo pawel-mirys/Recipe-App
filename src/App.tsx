@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.scss';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 
 import { RouterSwitch } from 'app/router/RouterSwitch';
 import { RecipeContextProvider } from 'app/contexts/RecipeContext';
+import { LinkButton } from 'ui/LinkButton/LinkButton';
 
 function App() {
   return (
@@ -11,7 +12,9 @@ function App() {
       <BrowserRouter>
         <div id="App">
           <div className="headerContainer">
-            <h1>The Recipe App</h1>
+            <LinkButton className="header" to={'/'}>
+              The Recipe App
+            </LinkButton>
             <p>What recipe do you want to save today?</p>
           </div>
           <RouterSwitch />

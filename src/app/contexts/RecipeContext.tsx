@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 
 import { recipesListMeta } from 'app/Components/RecipesList/recipeList-meta';
 
@@ -11,6 +11,7 @@ export const RecipeContext = createContext<{
   listItem: { title: string; description: string; ingredients: string[] };
   addRecipe: (title: string, description: string, ingredientsList: string[]) => void;
   setItem: (title: string, description: string, ingredients: string[], id: string) => void;
+  deleteRecipe: () => void;
 } | null>(null);
 
 export const RecipeContextProvider = ({ children }: ContextProps) => {
@@ -22,6 +23,14 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
     ingredients: [],
     id: '',
   });
+
+  const deleteItem = () => {
+    recipesList.forEach((item, index) => {
+      if (item.id === listItem.id) {
+        recipesList.splice(index, 1);
+      }
+    });
+  };
 
   const setItem = (title: string, description: string, ingredients: string[], id: string) => {
     setListItem((prev) => (prev = { title: title, description: description, ingredients: ingredients, id: id }));
@@ -44,6 +53,7 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
         recipesList,
         addRecipe,
         setItem,
+        deleteRecipe: deleteItem,
       }}
     >
       {children}

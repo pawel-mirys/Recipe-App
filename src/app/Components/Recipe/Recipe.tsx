@@ -18,7 +18,11 @@ export const Recipe = ({ title, description, ingredients, id }: RecipeProps) => 
     <div
       onClick={() => {
         context?.setItem(title, description, ingredients, id);
-        navigate('/preview');
+        context?.recipesList.forEach((item) => {
+          if (item.id === id) {
+            navigate('/preview');
+          }
+        });
       }}
       className={styles.recipe}
       id={id}

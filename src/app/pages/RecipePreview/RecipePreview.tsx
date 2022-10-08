@@ -1,10 +1,13 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import styles from './RecipePreview.module.scss';
 import { RecipeContext } from 'app/contexts/RecipeContext';
 import { Button } from 'ui/Button/Button';
 
 export const RecipePreview = () => {
   const context = useContext(RecipeContext);
+  const navigate = useNavigate();
   return (
     <div className={styles.previewContainer}>
       <h1 className={styles.previewTitle}>{context?.listItem.title}</h1>
@@ -22,7 +25,15 @@ export const RecipePreview = () => {
         <Button onClick={() => {}} className={styles.editButton}>
           Edit
         </Button>
-        <Button onClick={() => {}} className={styles.deleteButton}>
+        <Button
+          onClick={() => {
+            if (window.confirm('Do you want to delete this recipe?')) {
+              context?.deleteRecipe();
+              navigate('/');
+            }
+          }}
+          className={styles.deleteButton}
+        >
           Delete
         </Button>
       </div>

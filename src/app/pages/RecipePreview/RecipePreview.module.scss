@@ -23,5 +23,8 @@
   margin: auto;
   .deleteButton {
     background: $red;
+    &:hover {
+      background: $redFocus;
+    }
   }
 }
