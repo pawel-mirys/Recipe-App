@@ -2,7 +2,7 @@ $primary: #6f439c;
 $secondary: #353239;
 $background: #2b292e;
 $focus: #7d5c9e;
-$red: #b42222;
+$red: #c53030;
 $redFocus: #c74747;
 $green: #2e8d25;
 $white: #e2e1e1;
@@ -11,4 +11,13 @@ $white: #e2e1e1;
   justify-content: $justify;
   align-items: $align;
   flex-direction: $direction;
+}
+
+@mixin noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

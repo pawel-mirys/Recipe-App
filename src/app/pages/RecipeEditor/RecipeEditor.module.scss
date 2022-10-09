@@ -1,0 +1,17 @@
+@import '../../../variables.scss';
+.editorContainer {
+  @include flex(center, center, column);
+  width: 100%;
+  margin: auto;
+}
+
+p {
+  margin: 0;
+}
+
+.editorHeader {
+  width: 100%;
+  background-color: $secondary;
+  color: $white;
+  text-align: center;
+}

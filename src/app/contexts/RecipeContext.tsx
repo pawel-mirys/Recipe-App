@@ -25,9 +25,9 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
   });
 
   const deleteItem = () => {
-    recipesList.forEach((item, index) => {
+    recipesList.forEach((item) => {
       if (item.id === listItem.id) {
-        recipesList.splice(index, 1);
+        setRecipesList((prev) => prev.filter((recipe) => recipe.id !== item.id));
       }
     });
   };

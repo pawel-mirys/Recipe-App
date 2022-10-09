@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import { BrowserRouter, useNavigate } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import { RouterSwitch } from 'app/router/RouterSwitch';
 import { RecipeContextProvider } from 'app/contexts/RecipeContext';

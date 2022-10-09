@@ -1,0 +1,69 @@
+@import '/src//variables.scss';
+
+.creatorContainer {
+  @include flex(center, center, column);
+}
+.creatorContainer {
+  width: 100%;
+  margin: auto;
+}
+
+p {
+  margin: 0;
+  color: white;
+}
+
+.creatorHeader {
+  width: 100%;
+  background-color: $secondary;
+  color: white;
+  text-align: center;
+}
+
+.creatorForm {
+  @include flex(center, flex-start, column);
+}
+
+.ingredientsContainer {
+  color: $white;
+  margin-top: 15px;
+}
+
+.addButton {
+  margin-top: 25px;
+}
+
+.redButton {
+  background-color: $red;
+}
+
+.greenButton {
+  background-color: $green;
+}
+
+.inputInvalid {
+  border: 2px solid $red;
+}
+
+.errorMessage {
+  color: $red;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.submitButton {
+  align-self: center;
+  width: 140px;
+  height: 40px;
+  font-weight: 500;
+  font-size: 14px;
+  color: $white;
+  background: $primary;
+  border: none;
+  border-radius: 10px;
+  margin: 30px;
+  &:hover {
+    cursor: pointer;
+    background: #7d5c9e;
+  }
+}
