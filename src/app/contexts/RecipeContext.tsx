@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 
 import { recipesListMeta } from 'app/Components/RecipesList/recipeList-meta';
 
@@ -8,9 +8,11 @@ type ContextProps = {
 
 export const RecipeContext = createContext<{
   recipesList: { title: string; description: string; ingredients: string[]; id: string }[];
-  listItem: { title: string; description: string; ingredients: string[] };
+  listItem: { title: string; description: string; ingredients: string[]; id: string };
   addRecipe: (title: string, description: string, ingredientsList: string[]) => void;
   setItem: (title: string, description: string, ingredients: string[], id: string) => void;
+  updateRecipe: (title: string, description: string, ingredients: string[], id: string) => void;
+  deleteRecipe: () => void;
 } | null>(null);
 
 export const RecipeContextProvider = ({ children }: ContextProps) => {
@@ -23,8 +25,25 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
     id: '',
   });
 
+  const deleteItem = () => {
+    recipesList.forEach((item) => {
+      if (item.id === listItem.id) {
+        setRecipesList((prev) => prev.filter((recipe) => recipe.id !== item.id));
+      }
+    });
+  };
+
   const setItem = (title: string, description: string, ingredients: string[], id: string) => {
     setListItem((prev) => (prev = { title: title, description: description, ingredients: ingredients, id: id }));
+  };
+
+  const updateRecipe = (title: string, description: string, ingredients: string[], id: string) => {
+    setItem(title, description, ingredients, id);
+    setRecipesList((prev) => {
+      return prev.map((item) => {
+        return item.id === id ? { ...item, title: title, description: description, ingredients: ingredients } : item;
+      });
+    });
   };
 
   const addRecipe = (title: string, description: string, ingredientsList: string[]) => {
@@ -44,6 +63,8 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
         recipesList,
         addRecipe,
         setItem,
+        updateRecipe,
+        deleteRecipe: deleteItem,
       }}
     >
       {children}

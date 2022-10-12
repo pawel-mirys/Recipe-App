@@ -15,4 +15,3 @@ export const recipesListMeta: { title: string; description: string; ingredients:
     id: 'Recipe No. 1',
   },
 ];
-

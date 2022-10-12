@@ -36,11 +36,18 @@ export const RecipeForm = () => {
     }
   };
 
+  const handleDeleteIngredient = (e: React.MouseEvent<HTMLSpanElement>, item: string) => {
+    e.stopPropagation();
+    setIngredientsList((ingredientsList) => ingredientsList.filter((ingredient) => ingredient !== item));
+  };
+
   useEffect(() => {
     if (title !== '' && description !== '' && ingredientsList.length !== 0) {
-      setValid(true);
+      setValid((prev) => (prev = true));
+    } else {
+      setValid((prev) => (prev = false));
     }
-  }, [title, description, ingredient, ingredientsList]);
+  }, [title, description, ingredient, ingredientsList, valid]);
 
   return (
     <form onSubmit={handleSubmit} className={styles.creatorForm}>
@@ -70,7 +77,19 @@ export const RecipeForm = () => {
         <p>Ingredients:</p>
         <ul>
           {ingredientsList.map((item, index) => {
-            return <li key={index}>{item}</li>;
+            return (
+              <li key={index}>
+                {item}
+                <span
+                  onClick={(e: React.MouseEvent<HTMLSpanElement>) => {
+                    handleDeleteIngredient(e, item);
+                  }}
+                  className={styles.ingredientDelete}
+                >
+                  X
+                </span>
+              </li>
+            );
           })}
         </ul>
         <div className={styles.ingredientsContainer}>

@@ -1,18 +1,30 @@
 @import '/src/variables.scss';
 .previewContainer {
-    @include flex(center, center, column);
-    width: 80%;
-    margin: auto;
-    color: white;
-    .previewDescription {
-        width: 60%;
-        line-height: 30px;
-        font-size: 20px;
+  @include flex(center, center, column);
+  width: 80%;
+  margin: auto;
+  color: $white;
+  .previewDescription {
+    width: 60%;
+    line-height: 30px;
+    font-size: 20px;
+  }
+  .ingredientsList {
+    width: 60%;
+    .ingredient {
+      font-size: 18px;
     }
-    .ingredientsList {
-        width: 60%;
-        .ingredient {
-            font-size: 18px;
-        }
+  }
+}
+
+.controls {
+  @include flex(space-around, center, row);
+  width: 50%;
+  margin: auto;
+  .deleteButton {
+    background: $red;
+    &:hover {
+      background: $redFocus;
     }
+  }
 }

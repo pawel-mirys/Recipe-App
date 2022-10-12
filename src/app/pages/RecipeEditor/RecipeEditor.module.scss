@@ -1,5 +1,5 @@
 @import '../../../variables.scss';
-.creatorContainer {
+.editorContainer {
   @include flex(center, center, column);
   width: 100%;
   margin: auto;
@@ -9,7 +9,7 @@ p {
   margin: 0;
 }
 
-.creatorHeader {
+.editorHeader {
   width: 100%;
   background-color: $secondary;
   color: $white;
