@@ -1,6 +1,4 @@
-import { createContext, useState } from 'react';
-
-import { recipesListMeta } from 'app/Components/RecipesList/recipeList-meta';
+import { createContext, useEffect, useState } from 'react';
 
 type ContextProps = {
   children: JSX.Element | React.ReactElement;
@@ -16,9 +14,23 @@ export const RecipeContext = createContext<{
 } | null>(null);
 
 export const RecipeContextProvider = ({ children }: ContextProps) => {
-  const [recipesList, setRecipesList] = useState([...recipesListMeta]);
+  const localRecipes: { title: string; description: string; ingredients: string[]; id: string }[] = JSON.parse(
+    localStorage.getItem('storedRecipes')!,
+  );
+  const [recipesList, setRecipesList] = useState<
+    { title: string; description: string; ingredients: string[]; id: string }[]
+  >(localRecipes === null ? [] : [...localRecipes]);
 
-  const [listItem, setListItem] = useState<{ title: string; description: string; ingredients: string[]; id: string }>({
+  useEffect(() => {
+    localStorage.setItem('storedRecipes', JSON.stringify(recipesList));
+  }, [recipesList]);
+
+  const [previewItem, setPreviewItem] = useState<{
+    title: string;
+    description: string;
+    ingredients: string[];
+    id: string;
+  }>({
     title: '',
     description: '',
     ingredients: [],
@@ -27,14 +39,14 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
 
   const deleteItem = () => {
     recipesList.forEach((item) => {
-      if (item.id === listItem.id) {
+      if (item.id === previewItem.id) {
         setRecipesList((prev) => prev.filter((recipe) => recipe.id !== item.id));
       }
     });
   };
 
   const setItem = (title: string, description: string, ingredients: string[], id: string) => {
-    setListItem((prev) => (prev = { title: title, description: description, ingredients: ingredients, id: id }));
+    setPreviewItem((prev) => (prev = { title: title, description: description, ingredients: ingredients, id: id }));
   };
 
   const updateRecipe = (title: string, description: string, ingredients: string[], id: string) => {
@@ -59,7 +71,7 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
   return (
     <RecipeContext.Provider
       value={{
-        listItem,
+        listItem: previewItem,
         recipesList,
         addRecipe,
         setItem,
