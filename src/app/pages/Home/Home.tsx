@@ -10,9 +10,6 @@ export const Home = () => {
   return (
     <div className={styles.homePage}>
       <div className={styles.pageContainer}>
-        <div className={styles.searchContainer}>
-          <input className={styles.searchInput} type="text" placeholder="Search" />
-        </div>
         <div className={styles.recipesContainer}>
           <div className={styles.message}>You have {context?.recipesList.length} recipes saved!</div>
           <RecipesList />
