@@ -1,0 +1,15 @@
+@import 'src/variables.scss';
+.button {
+  width: 120px;
+  height: 36px;
+  font-weight: 500;
+  font-size: 12px;
+  color: $white;
+  background: $primary;
+  border: none;
+  border-radius: 10px;
+  &:hover {
+    cursor: pointer;
+    background: $focus;
+  }
+}

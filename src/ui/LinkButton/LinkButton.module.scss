@@ -1,0 +1,17 @@
+@import 'src/variables.scss';
+.linkButton {
+  @include flex(center, center, none);
+  width: 120px;
+  height: 36px;
+  font-weight: 500;
+  font-size: 16px;
+  color: $white;
+  background: $primary;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  &:hover {
+    cursor: pointer;
+    background: $focus;
+  }
+}
