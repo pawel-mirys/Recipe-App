@@ -11,31 +11,6 @@
   margin: auto;
 }
 
-.searchContainer {
-  @include flex(center, center, column);
-}
-
-.searchContainer {
-  height: 50px;
-  .searchInput {
-    outline: none;
-    height: 25px;
-    width: 60px;
-    padding-left: 15px;
-    margin-top: 30px;
-    background: none;
-    border: 2px solid $primary;
-    border-radius: 2%;
-    color: white;
-    font-size: 16px;
-    transition: 0.3s all ease-in-out;
-    &:focus {
-      border: 2px solid $focus;
-      width: 250px;
-    }
-  }
-}
-
 .recipesContainer {
   margin-top: 20px;
   width: 100%;
