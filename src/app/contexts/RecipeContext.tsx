@@ -8,9 +8,10 @@ type ContextProps = {
 
 export const RecipeContext = createContext<{
   recipesList: { title: string; description: string; ingredients: string[]; id: string }[];
-  listItem: { title: string; description: string; ingredients: string[] };
+  listItem: { title: string; description: string; ingredients: string[]; id: string };
   addRecipe: (title: string, description: string, ingredientsList: string[]) => void;
   setItem: (title: string, description: string, ingredients: string[], id: string) => void;
+  updateRecipe: (title: string, description: string, ingredients: string[], id: string) => void;
   deleteRecipe: () => void;
 } | null>(null);
 
@@ -36,6 +37,15 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
     setListItem((prev) => (prev = { title: title, description: description, ingredients: ingredients, id: id }));
   };
 
+  const updateRecipe = (title: string, description: string, ingredients: string[], id: string) => {
+    setItem(title, description, ingredients, id);
+    setRecipesList((prev) => {
+      return prev.map((item) => {
+        return item.id === id ? { ...item, title: title, description: description, ingredients: ingredients } : item;
+      });
+    });
+  };
+
   const addRecipe = (title: string, description: string, ingredientsList: string[]) => {
     const newRecipe: { title: string; description: string; ingredients: string[]; id: string } = {
       title: title,
@@ -53,6 +63,7 @@ export const RecipeContextProvider = ({ children }: ContextProps) => {
         recipesList,
         addRecipe,
         setItem,
+        updateRecipe,
         deleteRecipe: deleteItem,
       }}
     >

@@ -44,8 +44,9 @@ export const RecipeForm = () => {
   useEffect(() => {
     if (title !== '' && description !== '' && ingredientsList.length !== 0) {
       setValid((prev) => (prev = true));
+    } else {
+      setValid((prev) => (prev = false));
     }
-    setValid((prev) => (prev = false));
   }, [title, description, ingredient, ingredientsList, valid]);
 
   return (

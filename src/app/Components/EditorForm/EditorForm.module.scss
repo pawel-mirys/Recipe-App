@@ -67,3 +67,10 @@ p {
     background: #7d5c9e;
   }
 }
+
+.ingredientDelete {
+  margin: 0 0 0 10px;
+  cursor: pointer;
+  color: $red;
+  @include noselect;
+}

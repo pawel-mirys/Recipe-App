@@ -11,7 +11,7 @@ export const RouterSwitch = () => {
     <Routes>
       <Route path={routes.creator} element={<RecipeCreator />} />
       <Route path={routes.preview} element={<RecipePreview />} />
-      <Route path={routes.preview} element={<RecipeEditor />} />
+      <Route path={routes.editor} element={<RecipeEditor />} />
       <Route path={routes.home} element={<Home />} />
     </Routes>
   );

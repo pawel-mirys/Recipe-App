@@ -11,18 +11,20 @@ import { Input } from 'ui/Input/Input';
 export const EditorForm = () => {
   const recipeContext = useContext(RecipeContext);
   const ingredientRef = useRef<HTMLInputElement>(null);
+  const titleRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const navigate = useNavigate();
-  const [title, setTitle] = useState('');
-  const [description, setDescrption] = useState('');
+  const [title, setTitle] = useState(recipeContext!.listItem.title);
+  const [description, setDescrption] = useState(recipeContext!.listItem.description);
   const [ingredient, setIngredient] = useState('');
-  const [ingredientsList, setIngredientsList] = useState<string[]>([]);
+  const [ingredientsList, setIngredientsList] = useState<string[]>(recipeContext!.listItem.ingredients);
   const [valid, setValid] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (valid === true) {
-      recipeContext?.addRecipe(title, description, ingredientsList);
-      navigate('/');
+      recipeContext?.updateRecipe(title, description, ingredientsList, recipeContext.listItem.id);
+      navigate('/preview');
     }
   };
 
@@ -36,11 +38,23 @@ export const EditorForm = () => {
     }
   };
 
+  const handleDeleteIngredient = (e: React.MouseEvent<HTMLSpanElement>, item: string) => {
+    e.stopPropagation();
+    setIngredientsList((ingredientsList) => ingredientsList.filter((ingredient) => ingredient !== item));
+  };
+
   useEffect(() => {
     if (title !== '' && description !== '' && ingredientsList.length !== 0) {
-      setValid(true);
+      setValid((prev) => (prev = true));
+    } else {
+      setValid((prev) => (prev = false));
     }
-  }, [title, description, ingredient, ingredientsList]);
+  }, [title, description, ingredient, ingredientsList, valid]);
+
+  useEffect(() => {
+    titleRef.current!.value = title;
+    descriptionRef.current!.value = description;
+  });
 
   return (
     <form onSubmit={handleSubmit} className={styles.creatorForm}>
@@ -49,6 +63,7 @@ export const EditorForm = () => {
         className={clsx(title === '' && styles.inputInvalid)}
         type="text"
         placeHolder="Title"
+        innerRef={titleRef}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setTitle((prev) => (prev = e.target.value));
         }}
@@ -58,6 +73,7 @@ export const EditorForm = () => {
         htmlFor="Recipe Description"
         className={clsx(description === '' && styles.inputInvalid)}
         placeHolder="Recipe Description"
+        innerRef={descriptionRef}
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
           setDescrption((prev) => (prev = e.target.value));
         }}
@@ -70,7 +86,19 @@ export const EditorForm = () => {
         <p>Ingredients:</p>
         <ul>
           {ingredientsList.map((item, index) => {
-            return <li key={index}>{item}</li>;
+            return (
+              <li key={index}>
+                {item}
+                <span
+                  onClick={(e: React.MouseEvent<HTMLSpanElement>) => {
+                    handleDeleteIngredient(e, item);
+                  }}
+                  className={styles.ingredientDelete}
+                >
+                  X
+                </span>
+              </li>
+            );
           })}
         </ul>
         <div className={styles.ingredientsContainer}>
@@ -87,7 +115,7 @@ export const EditorForm = () => {
           <Button className={styles.returnButton} children="Add Ingredient" onClick={handleIngredientButton} />
         </div>
       </div>
-      <button className={styles.submitButton}>Add Recipe</button>
+      <button className={styles.submitButton}>Save</button>
     </form>
   );
 };
