@@ -7,9 +7,9 @@ Main objective: Learn about hooks and how to use them.
 
 App was made by using:
 
-React / Typescript
-SASS
-CSS Modules
-React Router
-CSLX
-Eslint
+React / Typescript,
+SASS,
+CSS Modules,
+React Router,
+CSLX,
+Eslint,
